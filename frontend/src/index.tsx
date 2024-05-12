@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import App from "./App";
 import "./assets/styles/custom.scss";
+import "./assets/styles/index.scss";
 import HomePage from "./pages/HomePage";
 import reportWebVitals from "./reportWebVitals";
 
