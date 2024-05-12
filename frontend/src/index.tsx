@@ -10,12 +10,14 @@ import App from "./App";
 import "./assets/styles/custom.scss";
 import "./assets/styles/index.scss";
 import HomePage from "./pages/HomePage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomePage />} />
+      <Route path="/products/:id" element={<ProductDetailsPage />} />
     </Route>
   )
 );
