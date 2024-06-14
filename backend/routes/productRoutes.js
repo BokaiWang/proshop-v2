@@ -19,7 +19,9 @@ router.get(
     if (product) {
       res.json(product);
     } else {
-      res.status(404).json({ message: "Product not found" });
+      res.status(404);
+      // Throwing this error is probably redundant
+      throw new Error("Resource not found");
     }
   })
 );
