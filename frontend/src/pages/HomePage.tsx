@@ -4,12 +4,21 @@ import { useGetProductsQuery } from "../slices/productsApiSlice";
 
 const HomePage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
+
+  if (error) {
+    if ("status" in error) {
+      const errMsg = JSON.stringify(error.data);
+
+      return <div>{errMsg}</div>;
+    } else {
+      return <div>{error.message}</div>;
+    }
+  }
+
   return (
     <>
       {isLoading ? (
         <h2>Loading...</h2>
-      ) : error ? (
-        <div>Failed to load</div>
       ) : (
         <>
           <h1>Latest Products</h1>
