@@ -1,4 +1,6 @@
 import { Col, Row } from "react-bootstrap";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 import Product from "../components/Product";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 
@@ -9,16 +11,16 @@ const HomePage = () => {
     if ("status" in error) {
       const errMsg = JSON.stringify(error.data);
 
-      return <div>{errMsg}</div>;
+      return <Message variant="danger">{errMsg}</Message>;
     } else {
-      return <div>{error.message}</div>;
+      return <Message variant="danger">{error.message}</Message>;
     }
   }
 
   return (
     <>
       {isLoading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : (
         <>
           <h1>Latest Products</h1>

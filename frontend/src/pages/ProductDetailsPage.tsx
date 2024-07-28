@@ -1,5 +1,7 @@
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 import Rating from "../components/Rating";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
 
@@ -15,9 +17,9 @@ const ProductDetailsPage = () => {
     if ("status" in error) {
       const errMsg = JSON.stringify(error.data);
 
-      return <div>{errMsg}</div>;
+      return <Message variant="danger">{errMsg}</Message>;
     } else {
-      return <div>{error.message}</div>;
+      return <Message variant="danger">{error.message}</Message>;
     }
   }
 
@@ -27,7 +29,7 @@ const ProductDetailsPage = () => {
         Go Back
       </Link>
       {isLoading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : (
         <Row>
           <Col md={5}>
