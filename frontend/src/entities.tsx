@@ -10,3 +10,10 @@ export interface Product {
   rating: number;
   numReviews: number;
 }
+
+export interface CartItem {
+  _id: string;
+  name: string;
+  price: number;
+  qty: number;
+}
