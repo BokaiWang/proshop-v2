@@ -17,3 +17,11 @@ export interface CartItem {
   price: number;
   qty: number;
 }
+
+export interface CartState {
+  cartItems: CartItem[];
+  itemsPrice: number;
+  shippingPrice: number;
+  taxPrice: number;
+  totalPrice: number;
+}
