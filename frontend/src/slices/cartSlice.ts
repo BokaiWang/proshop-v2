@@ -23,17 +23,17 @@ const cartSlice = createSlice({
       } else {
         state.cartItems = [...state.cartItems, item];
       }
-      const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
-        updateCart(state);
-      state.itemsPrice = itemsPrice;
-      state.shippingPrice = shippingPrice;
-      state.taxPrice = taxPrice;
-      state.totalPrice = totalPrice;
-      localStorage.setItem("cart", JSON.stringify(state));
+      updateCart(state);
+    },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter(
+        (cartItem) => cartItem._id !== action.payload
+      );
+      updateCart(state);
     },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

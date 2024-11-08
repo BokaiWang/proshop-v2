@@ -12,16 +12,26 @@ import {
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { cartSelector } from "../selectors/cartSelector";
-import { addToCart } from "../slices/cartSlice";
+import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { CartItem } from "../entities";
+import { addDecimals } from "../utils/cartUtils";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const cart = useAppSelector(cartSelector);
   const { cartItems } = cart;
+
   const onChangeQty = async (product: CartItem, qty: number) => {
     dispatch(addToCart({ ...product, qty }));
+  };
+
+  const onRemoveItem = async (itemId: string) => {
+    dispatch(removeFromCart(itemId));
+  };
+
+  const proceedToCheckout = () => {
+    navigate("/login?redirect=/shipping");
   };
   return (
     <Row>
@@ -59,7 +69,11 @@ const CartPage = () => {
                     </Form.Control>
                   </Col>
                   <Col md={2}>
-                    <Button type="button" variant="light">
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => onRemoveItem(item._id)}
+                    >
                       <FaTrash />
                     </Button>
                   </Col>
@@ -77,13 +91,17 @@ const CartPage = () => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
-              ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}
+              $
+              {addDecimals(
+                cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
                 type="button"
                 className="btn-block"
                 disabled={cartItems.length === 0}
+                onClick={proceedToCheckout}
               >
                 Proceed To Checkout
               </Button>
