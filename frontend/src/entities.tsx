@@ -11,6 +11,13 @@ export interface Product {
   numReviews: number;
 }
 
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  isAdmin: boolean;
+}
+
 export interface CartItem extends Product {
   qty: number;
 }
@@ -21,4 +28,8 @@ export interface CartState {
   shippingPrice: number;
   taxPrice: number;
   totalPrice: number;
+}
+
+export interface AuthState {
+  userInfo: User;
 }
