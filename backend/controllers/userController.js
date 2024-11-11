@@ -12,7 +12,7 @@ const authUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -59,14 +59,44 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @route  GET /api/users/profile
 // @access Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.json("get user profile");
+  // We have a user property on req because of the protect middleware we created
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.status(200).json({
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      isAdmin: user.isAdmin,
+    });
+  }
+  res.status(404);
+  throw new Error("User not found");
 });
 
 // @desc   Update user profile
 // @route  PUT /api/users/profile
 // @access Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  res.json("update user profile");
+  const user = await User.findById(req.user._id);
+  const { name, email, password } = req.body;
+  if (user) {
+    user.name = name || user.name;
+    user.email = email || user.email;
+
+    if (password) {
+      user.password = password;
+    }
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    throw new Error("User not found");
+  }
 });
 
 // @desc   Get all users
