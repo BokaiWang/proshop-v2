@@ -32,5 +32,5 @@ export interface CartState {
 }
 
 export interface AuthState {
-  userInfo: User;
+  userInfo: User | null;
 }
