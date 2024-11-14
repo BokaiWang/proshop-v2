@@ -1,14 +1,22 @@
-import { Badge, Container, Nav, Navbar } from "react-bootstrap";
+import { Badge, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { cartSelector } from "../selectors/cartSelector";
+import { useAppSelector } from "../hooks";
+import { authSelector } from "../selectors/authSelector";
 
 const Header = () => {
-  const { cartItems } = useSelector(cartSelector);
+  const { cartItems } = useAppSelector(cartSelector);
+  const { userInfo } = useAppSelector(authSelector);
+
   const cartItemQty = cartItems.reduce((acc, curr) => {
     return (acc = acc + curr.qty);
   }, 0);
+
+  const logoutHandler = () => {
+    console.log("log out");
+  };
+
   return (
     <header>
       <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
@@ -29,11 +37,22 @@ const Header = () => {
                   )}
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <FaUser /> Sign In
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Log out
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <FaUser /> Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
