@@ -29,6 +29,8 @@ export interface CartState {
   shippingPrice: number;
   taxPrice: number;
   totalPrice: number;
+  shippingAddress: object;
+  paymentMethod: string;
 }
 
 export interface AuthState {
