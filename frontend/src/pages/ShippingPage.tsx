@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { cartSelector } from "../selectors/cartSelector";
 import { saveShippingAddress } from "../slices/cartSlice";
 import { useNavigate } from "react-router-dom";
+import CheckoutSteps from "../components/CheckoutSteps";
 
 const FormSchema = z.object({
   address: z.string(),
@@ -26,13 +27,13 @@ const ShippingPage = () => {
   });
 
   const submitHandler: SubmitHandler<FormValues> = (values) => {
-    console.log("values", values);
     dispatch(saveShippingAddress({ ...values }));
     navigate("/payment");
   };
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Shipping Address</h1>
       <Form onSubmit={handleSubmit(submitHandler)}>
         <Form.Group controlId="address" className="my-3">
