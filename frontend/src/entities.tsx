@@ -29,10 +29,25 @@ export interface CartState {
   shippingPrice: number;
   taxPrice: number;
   totalPrice: number;
-  shippingAddress: object;
+  shippingAddress: {
+    address: string;
+    city: string;
+    postalCode: string;
+    country: string;
+  };
   paymentMethod: string;
 }
 
 export interface AuthState {
   userInfo: User | null;
+}
+
+export interface Order {
+  orderItems: [];
+  shippingAddress: string;
+  paymentMethod: string;
+  itemsPrice: number;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
 }
