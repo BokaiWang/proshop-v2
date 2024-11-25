@@ -23,18 +23,20 @@ export interface CartItem extends Product {
   qty: number;
 }
 
+export interface ShippingAddress {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
 export interface CartState {
   cartItems: CartItem[];
   itemsPrice: number;
   shippingPrice: number;
   taxPrice: number;
   totalPrice: number;
-  shippingAddress: {
-    address: string;
-    city: string;
-    postalCode: string;
-    country: string;
-  };
+  shippingAddress: ShippingAddress;
   paymentMethod: string;
 }
 
@@ -43,11 +45,12 @@ export interface AuthState {
 }
 
 export interface Order {
-  orderItems: [];
-  shippingAddress: string;
+  orderItems: CartItem[];
+  shippingAddress: ShippingAddress;
   paymentMethod: string;
   itemsPrice: number;
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
+  _id: string;
 }
