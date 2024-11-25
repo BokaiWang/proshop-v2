@@ -1,5 +1,5 @@
 import { ORDERS_URL } from "../constants";
-import { Order } from "../entities";
+import { CreatedOrder, Order } from "../entities";
 import { apiSlice } from "./apiSlice";
 
 export const ordersApiSlice = apiSlice.injectEndpoints({
@@ -11,7 +11,15 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
         body: order,
       }),
     }),
+    getOrderDetails: builder.query<CreatedOrder, string>({
+      query: (orderId: string) => ({
+        url: `${ORDERS_URL}/${orderId}`,
+        method: "GET",
+      }),
+      keepUnusedDataFor: 5,
+    }),
   }),
 });
 
-export const { useCreateOrderMutation } = ordersApiSlice;
+export const { useCreateOrderMutation, useGetOrderDetailsQuery } =
+  ordersApiSlice;

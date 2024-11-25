@@ -44,6 +44,10 @@ export interface AuthState {
   userInfo: User | null;
 }
 
+export interface OrderItem extends CartItem {
+  product: string;
+}
+
 export interface Order {
   orderItems: CartItem[];
   shippingAddress: ShippingAddress;
@@ -53,4 +57,14 @@ export interface Order {
   shippingPrice: number;
   totalPrice: number;
   _id: string;
+}
+
+export interface CreatedOrder extends Order {
+  orderItems: OrderItem[];
+  user: { name: string; email: string };
+  isDelivered: boolean;
+  deliveredAt: string;
+  isPaid: boolean;
+  paidAt: string;
+  product: string;
 }
