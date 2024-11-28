@@ -56,6 +56,11 @@ export interface Order {
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
+  createdAt: string;
+  isPaid: boolean;
+  isDelivered: boolean;
+  paidAt: string;
+  deliveredAt: string;
   _id: string;
 }
 
