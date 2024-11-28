@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { Provider } from "react-redux";
 import {
   createBrowserRouter,
@@ -44,10 +45,19 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const initialOptions = {
+  clientId: "test",
+  currency: "USD",
+  intent: "capture",
+};
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PayPalScriptProvider deferLoading options={initialOptions}>
+        <RouterProvider router={router} />
+      </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>
 );

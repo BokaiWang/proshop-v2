@@ -70,14 +70,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 // @desc   Update order to paid
 // @route  PUT /api/orders/:id/pay
 // @access Private
-const udpateOrderToPaid = asyncHandler(async (req, res) => {
-  return res.send("Update order to paid");
-});
-
-// @desc   Update order to delivered
-// @route  PUT /api/orders/:id/pay
-// @access Private/Admin
-const udpateOrderToDelivered = asyncHandler(async (req, res) => {
+const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 
   if (order) {
@@ -99,6 +92,13 @@ const udpateOrderToDelivered = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Update order to delivered
+// @route  PUT /api/orders/:id/pay
+// @access Private/Admin
+const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  return res.send("Update order to delivered");
+});
+
 // @desc   Get all orders
 // @route  GET /api/orders
 // @access Private/Admin
@@ -110,7 +110,7 @@ export {
   addOrderItems,
   getMyOrders,
   getOrderById,
-  udpateOrderToPaid,
-  udpateOrderToDelivered,
+  updateOrderToPaid,
+  updateOrderToDelivered,
   getAllOrders,
 };
