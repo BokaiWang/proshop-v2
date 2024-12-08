@@ -73,3 +73,7 @@ export interface CreatedOrder extends Order {
   paidAt: string;
   product: string;
 }
+
+export interface AllOrder extends Order {
+  user: { name: string; id: string };
+}
