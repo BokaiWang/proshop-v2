@@ -86,6 +86,7 @@ const ProductEditPage = () => {
               <Form.Control
                 type="number"
                 placeholder="Enter price"
+                step={"0.01"}
                 {...register("price")}
               ></Form.Control>
             </Form.Group>
