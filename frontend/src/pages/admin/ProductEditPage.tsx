@@ -77,6 +77,7 @@ const ProductEditPage = () => {
       toast.error((err as any)?.data?.message || (err as any).error);
     }
   };
+
   return (
     <>
       <Link to="/admin/product-list" className="btn btn-light my-3">
