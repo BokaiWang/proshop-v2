@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   useGetProductDetailsQuery,
   useUpdateProductMutation,
+  useUploadProductImageMutation,
 } from "../../slices/productsApiSlice";
 import FormContainer from "../../components/FormContainer";
 import Loader from "../../components/Loader";
@@ -16,6 +17,7 @@ const FormSchema = z.object({
   name: z.string(),
   price: z.number(),
   brand: z.string(),
+  image: z.string(),
   category: z.string(),
   countInStock: z.number(),
   description: z.string(),
@@ -29,19 +31,22 @@ const ProductEditPage = () => {
   const {
     data: product,
     isLoading,
-    refetch,
     error,
   } = useGetProductDetailsQuery(productId as string);
 
   const [updateProduct, { isLoading: isLoadingUpdate }] =
     useUpdateProductMutation();
 
+  const [uploadProductImage, { isLoading: isLoadingUpload }] =
+    useUploadProductImageMutation();
+
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { register, handleSubmit, setValue } = useForm<FormValues>({
     values: {
       name: product?.name as string,
       price: product?.price as number,
       brand: product?.brand as string,
+      image: product?.image as string,
       category: product?.category as string,
       countInStock: product?.countInStock as number,
       description: product?.description as string,
@@ -58,6 +63,18 @@ const ProductEditPage = () => {
     } else {
       toast.success("Product updated");
       navigate("/admin/product-list");
+    }
+  };
+
+  const uploadFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files?.[0] as File);
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      toast.success(res.message);
+      setValue("image", res.image);
+    } catch (err) {
+      toast.error((err as any)?.data?.message || (err as any).error);
     }
   };
   return (
@@ -90,7 +107,18 @@ const ProductEditPage = () => {
                 {...register("price")}
               ></Form.Control>
             </Form.Group>
-            {/* Image Placeholder */}
+            <Form.Group controlId="image" className="my-2">
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter image url"
+                {...register("image")}
+              ></Form.Control>
+              <Form.Control
+                type="file"
+                onChange={uploadFileHandler}
+              ></Form.Control>
+            </Form.Group>
             <Form.Group controlId="brand" className="my-2">
               <Form.Label>Brand</Form.Label>
               <Form.Control
