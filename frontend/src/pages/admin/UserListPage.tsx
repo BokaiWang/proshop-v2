@@ -2,16 +2,33 @@ import React from "react";
 import { Button, Table } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import { useGetAllUsersQuery } from "../../slices/usersApiSlice";
+import {
+  useDeleteUserMutation,
+  useGetAllUsersQuery,
+} from "../../slices/usersApiSlice";
 import { FaTimes, FaTrash, FaEdit, FaCheck } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
+import { toast } from "react-toastify";
 
 const UserListPage = () => {
   const { data: users, refetch, isLoading, error } = useGetAllUsersQuery();
-  const deleteHandler = (id: string) => console.log("delete");
+  const [deleteUser, { isLoading: isLoadingDeleteUser }] =
+    useDeleteUserMutation();
+  const deleteHandler = async (userId: string) => {
+    if (window.confirm("Are you sure?")) {
+      try {
+        const res = await deleteUser(userId).unwrap();
+        toast.success(res.message);
+        refetch();
+      } catch (err) {
+        toast.error((err as any)?.data?.message || (err as any).error);
+      }
+    }
+  };
   return (
     <>
       <h1>Users</h1>
+      {isLoadingDeleteUser && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
