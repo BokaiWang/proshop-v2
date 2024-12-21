@@ -7,7 +7,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const OrderListPage = () => {
   const { data: orders, isLoading, error } = useGetAllOrdersQuery();
-  console.log("orders", orders);
+
   return (
     <>
       <h1>Orders</h1>
