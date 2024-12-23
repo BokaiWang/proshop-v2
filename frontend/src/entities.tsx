@@ -9,6 +9,7 @@ export interface Product {
   countInStock: number;
   rating: number;
   numReviews: number;
+  reviews: Review[];
 }
 
 export interface User {
@@ -76,4 +77,13 @@ export interface CreatedOrder extends Order {
 
 export interface AllOrder extends Order {
   user: { name: string; id: string };
+}
+
+export interface Review {
+  _id: string;
+  name: string;
+  rating: number;
+  comment: string;
+  productId: string;
+  createdAt: string;
 }
