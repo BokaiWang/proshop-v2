@@ -4,6 +4,7 @@ import Message from "../components/Message";
 import Product from "../components/Product";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import { useSearchParams } from "react-router-dom";
+import Paginate from "../components/Paginate";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -36,6 +37,7 @@ const HomePage = () => {
               </Col>
             ))}
           </Row>
+          <Paginate pages={data!.pages} page={data!.page} />
         </>
       )}
     </>

@@ -11,6 +11,7 @@ import Message from "../../components/Message";
 import { LinkContainer } from "react-router-bootstrap";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
+import Paginate from "../../components/Paginate";
 
 const ProductListPage = () => {
   const [searchParams] = useSearchParams();
@@ -18,6 +19,7 @@ const ProductListPage = () => {
   const { data, isLoading, error, refetch } = useGetProductsQuery({
     pageNumber: Number(page),
   });
+
   const [
     createProduct,
     { isLoading: isLoadingCreateProduct, error: errorCreateProduct },
@@ -108,6 +110,7 @@ const ProductListPage = () => {
               ))}
             </tbody>
           </Table>
+          <Paginate pages={data!.pages} page={data!.page} />
         </>
       )}
     </>
