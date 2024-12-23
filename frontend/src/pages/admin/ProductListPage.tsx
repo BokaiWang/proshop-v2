@@ -10,9 +10,14 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { LinkContainer } from "react-router-bootstrap";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 const ProductListPage = () => {
-  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page");
+  const { data, isLoading, error, refetch } = useGetProductsQuery({
+    pageNumber: Number(page),
+  });
   const [
     createProduct,
     { isLoading: isLoadingCreateProduct, error: errorCreateProduct },
@@ -76,7 +81,7 @@ const ProductListPage = () => {
               </tr>
             </thead>
             <tbody>
-              {products?.map((product) => (
+              {data?.products?.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
