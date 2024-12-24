@@ -5,6 +5,7 @@ import Product from "../components/Product";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import { useSearchParams, Link } from "react-router-dom";
 import Paginate from "../components/Paginate";
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -27,10 +28,12 @@ const HomePage = () => {
 
   return (
     <>
-      {keyword && (
+      {keyword ? (
         <Link className="btn btn-outline-primary mb-4" to="/">
           Go Back
         </Link>
+      ) : (
+        <ProductCarousel />
       )}
       {isLoading ? (
         <Loader />
