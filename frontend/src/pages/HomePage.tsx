@@ -3,7 +3,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Product from "../components/Product";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import Paginate from "../components/Paginate";
 
 const HomePage = () => {
@@ -27,6 +27,11 @@ const HomePage = () => {
 
   return (
     <>
+      {keyword && (
+        <Link className="btn btn-outline-primary mb-4" to="/">
+          Go Back
+        </Link>
+      )}
       {isLoading ? (
         <Loader />
       ) : (
