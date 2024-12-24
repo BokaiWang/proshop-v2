@@ -9,8 +9,10 @@ import Paginate from "../components/Paginate";
 const HomePage = () => {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
+  const keyword = searchParams.get("keyword") || "";
   const { data, isLoading, error } = useGetProductsQuery({
     pageNumber: Number(page),
+    keyword,
   });
 
   if (error) {
