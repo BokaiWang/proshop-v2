@@ -22,6 +22,7 @@ import { authSelector } from "../selectors/authSelector";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Meta from "../components/Meta";
 
 const FormSchema = z.object({
   rating: z.string(),
@@ -86,6 +87,7 @@ const ProductDetailsPage = () => {
         <Loader />
       ) : (
         <>
+          <Meta title={product?.name} />
           <Row>
             <Col md={5}>
               <Image src={product?.image} alt={product?.name} fluid />

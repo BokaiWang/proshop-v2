@@ -22,10 +22,8 @@ const ProductListPage = () => {
     keyword,
   });
 
-  const [
-    createProduct,
-    { isLoading: isLoadingCreateProduct, error: errorCreateProduct },
-  ] = useCreateProductMutation();
+  const [createProduct, { isLoading: isLoadingCreateProduct }] =
+    useCreateProductMutation();
 
   const [deleteProduct, { isLoading: isLoadingDeleteProduct }] =
     useDeleteProductMutation();

@@ -12,7 +12,7 @@ import SearchBox from "./SearchBox";
 const Header = () => {
   const { cartItems } = useAppSelector(cartSelector);
   const { userInfo } = useAppSelector(authSelector);
-  const [logout, { isLoading }] = useLogoutMutation();
+  const [logout] = useLogoutMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const cartItemQty = cartItems.reduce((acc, curr) => {
