@@ -89,7 +89,7 @@ const ProductEditPage = () => {
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <Message variant="danger">{error as any}</Message>
+          <Message variant="danger">{(error as any).data.message}</Message>
         ) : (
           <Form onSubmit={handleSubmit(submitHandler)}>
             <Form.Group controlId="name" className="my-2">

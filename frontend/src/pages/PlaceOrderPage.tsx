@@ -132,11 +132,13 @@ const PlaceOrderPage = () => {
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {/* {error && (
+              {error && (
                 <ListGroup.Item>
-                  <Message variant="danger">{error}</Message>
+                  <Message variant="danger">
+                    {(error as any)?.data?.message}
+                  </Message>
                 </ListGroup.Item>
-              )} */}
+              )}
               <ListGroup.Item>
                 <Button
                   className="btn-block"

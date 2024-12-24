@@ -69,18 +69,6 @@ const OrderDetailsPage = () => {
     }
   }, [order, paypal, paypalDispatch, isLoadingPayPal, errorPayPal]);
 
-  if (error) {
-    if ("status" in error) {
-      const errMsg = JSON.stringify(error.data);
-
-      return <Message variant="danger">{errMsg}</Message>;
-    } else {
-      return <Message variant="danger">{error.message}</Message>;
-    }
-  } else if (isLoading) {
-    return <Loader />;
-  }
-
   const onApprove = (
     data: OnApproveData,
     actions: OnApproveActions
@@ -134,7 +122,13 @@ const OrderDetailsPage = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : error ? (
+    <Message variant="danger">
+      {(error as any).data?.message || (error as any).error}
+    </Message>
+  ) : (
     <>
       <h1>Order {order?._id}</h1>
       <Row>
