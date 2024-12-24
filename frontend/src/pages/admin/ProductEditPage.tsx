@@ -37,8 +37,7 @@ const ProductEditPage = () => {
   const [updateProduct, { isLoading: isLoadingUpdate }] =
     useUpdateProductMutation();
 
-  const [uploadProductImage, { isLoading: isLoadingUpload }] =
-    useUploadProductImageMutation();
+  const [uploadProductImage] = useUploadProductImageMutation();
 
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm<FormValues>({

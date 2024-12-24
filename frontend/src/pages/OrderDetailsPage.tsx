@@ -75,7 +75,7 @@ const OrderDetailsPage = () => {
   ): Promise<void> => {
     return actions!.order!.capture().then(async (details) => {
       try {
-        await payOrder({ orderId: orderId as string, details });
+        await payOrder({ orderId: orderId as string, details }).unwrap();
         refetch();
         toast.success("Payment successful");
       } catch (error: any) {
